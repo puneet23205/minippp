@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+                /* Global Styles */
+                body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+            text-align: center;
+            position: relative;
+        }
+        .background-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    font-size: 1.0 rem; /* Adjust font size for fitting more text */
+    color: rgba(31, 87, 199, 0.1); /* Light Blue with opacity */
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    line-height: 1.1; /* Reduce vertical gap */
+}
+
+.background-text span {
+    flex: 0 0 auto;
+    margin-right: 15px; /* Adjust horizontal spacing */
+    margin-bottom: 10px; /* Adjust vertical spacing */
+}
+
+
+        /* Page Content */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #a4e5d8;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        /* Card Styles */
+        .card {
+            padding: 20px;
+            background: #e2baeb;
+            border: 1px solid #81d4fa;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            border-color: #0288d1;
+        }
+
+        /* Button Styles */
+        .back-button {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background: #0288d1;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #7155d7;
+            transform: scale(1.05);
+        }
+
+        /* Upload Section */
+        .upload-section h2 {
+            margin-bottom: 20px;
+            color: #0288d1;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        .upload-box {
+            padding: 25px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .upload-box input[type="file"] {
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #bbb;
+            background: #fff;
+            margin: 20px 0;
+            width: 60%;
+            transition: border-color 0.3s ease;
+        }
+
+        .upload-box input[type="file"]:focus {
+            border-color: #0288d1;
+            outline: none;
+        }
+
+        .upload-box button {
+            background: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .upload-box button:hover {
+            background: #0288d1;
+            transform: scale(1.05);
+        }
+
+        .upload-status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Resource Item Styles */
+        .resource-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f8e9;
+            padding: 15px;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-item h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .resource-item .actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .resource-item .actions a {
+            color: #0288d1;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .resource-item .actions a:hover {
+            color: #01579b;
+        }
+
+        .resource-item .actions button {
+            background: #d1342c;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .resource-item .actions button:hover {
+            background: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .upload-box input[type="file"] {
+                width: 80%;
+            }
+
+            .upload-box button {
+                font-size: 0.9rem;
+                padding: 8px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContent">
+        <!-- Year Selection -->
+        <div class="section" id="yearSelection">
+            <h2>Select Year</h2>
+            <div class="grid">
+                <div class="card" onclick="selectYear(1)">First Year</div>
+                <div class="card" onclick="selectYear(2)">Second Year</div>
+                <div class="card" onclick="selectYear(3)">Third Year</div>
+                <div class="card" onclick="selectYear(4)">Fourth Year</div>
+            </div>
+        </div>
+
+        <!-- Subject Selection -->
+        <div class="section" id="subjectSelection" style="display: none;">
+            <a href="#" class="back-button" onclick="goBackToYears()">&larr; Back to Years</a>
+            <h2>Select Subject</h2>
+            <div class="grid" id="subjectGrid"></div>
+        </div>
+
+        <!-- Chapter Selection -->
+        <div class="section" id="chapterSelection" style="display: none;">
+            <a href="#" class="back-button" onclick="goBackToSubjects()">&larr; Back to Subjects</a>
+            <h2>Select Chapter</h2>
+            <div class="grid" id="chapterGrid"></div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="section" id="uploadSection" style="display: none;">
+            <a href="#" class="back-button" onclick="goBackToChapters()">&larr; Back to Chapters</a>
+            <h2>Upload Resources</h2>
+            <div class="upload-box">
+                <input type="file" id="fileInput" accept="application/pdf" />
+                <button onclick="uploadFile()">Upload</button>
+                <p id="uploadStatus" class="upload-status"></p>
+            </div>
+            <h3>Uploaded Resources</h3>
+            <div id="uploadedResources"></div>
+        </div>
+    </div>
+
+    <script>let currentYear, currentSubject, currentChapter;
+      const dbName = 'resourceDB';
+      
+      // Initialize IndexedDB
+      function initDB() {
+          const request = indexedDB.open(dbName, 1);
+          request.onupgradeneeded = function () {
+              const db = request.result;
+              if (!db.objectStoreNames.contains('resources')) {
+                  db.createObjectStore('resources', { keyPath: 'name' });
+              }
+          };
+          request.onsuccess = function (e) {
+              displayUploadedResources();
+          };
+      }
+      
+      // Function to select a year
+      function selectYear(year) {
+          currentYear = year;
+          document.getElementById('yearSelection').style.display = 'none';
+          document.getElementById('subjectSelection').style.display = 'block';
+          generateSubjects(year);
+      }
+      
+      // Generate subjects dynamically
+      function generateSubjects(year) {
+          const subjects = [
+              ['Mathematics I', 'Physics', 'Chemistry', 'Engineering Mechanics', 'Introduction to Computing', 'Basic Electrical Engineering', 'Engineering Drawing', 'Manufacturing Process', 'Introduction to Civil Engineering', 'Basic Mechanical Engineering', 'Engineering Physics', 'Environmental Studies'],
+              ['Mathematics II', 'Engineering Thermodynamics', 'Fluid Mechanics', 'Control Systems', 'Material Science', 'Mechanics of Solids', 'Electrical Circuits', 'Digital Electronics', 'Mechanical Engineering II', 'Engineering Mathematics II', 'Computer Programming', 'Industrial Engineering'],
+              ['Mathematics III', 'Computer Networks', 'Strength of Materials', 'Power Electronics', 'Communication Systems', 'Embedded Systems', 'Design of Machine Elements', 'Manufacturing Process', 'Signals and Systems', 'Microprocessors', 'Robotics', 'VLSI Design'],
+              ['Advanced Mathematics', 'Control Systems II', 'Artificial Intelligence', 'Software Engineering', 'Power Systems', 'Data Structures', 'Automata Theory', 'Wireless Communication', 'Digital Signal Processing', 'Machine Learning', 'Cloud Computing', 'Blockchain Technology']
+          ];
+      
+          const subjectGrid = document.getElementById('subjectGrid');
+          subjectGrid.innerHTML = ''; // Clear existing content
+      
+          subjects[year - 1].forEach(subject => {
+              const card = document.createElement('div');
+              card.classList.add('card');
+              card.innerText = subject;
+              card.onclick = () => selectSubject(subject);
+              subjectGrid.appendChild(card);
+          });
+      }
+      
+      // Function to go back to Year selection
+      function goBackToYears() {
+          document.getElementById('subjectSelection').style.display = 'none';
+          document.getElementById('yearSelection').style.display = 'block';
+      }
+      
+      // Function to select a subject
+      function selectSubject(subject) {
+          currentSubject = subject;
+          document.getElementById('subjectSelection').style.display = 'none';
+          document.getElementById('chapterSelection').style.display = 'block';
+          generateChapters();
+      }
+      function goBackToSubjects() {
+          document.getElementById('chapterSelection').style.display = 'none';
+          document.getElementById('subjectSelection').style.display = 'block';
+      }
+      // Generate chapters dynamically (for now, just placeholders)
+      function generateChapters() {
+          const chapters = ['Chapter 1', 'Chapter 2', 'Chapter 3', 'Chapter 4', 'Chapter 5'];
+          const chapterGrid = document.getElementById('chapterGrid');
+          chapterGrid.innerHTML = ''; // Clear existing content
+      
+          chapters.forEach((chapter, index) => {
+              const card = document.createElement('div');
+              card.classList.add('card');
+              card.innerText = chapter;
+              card.onclick = () => selectChapter(chapter);
+              chapterGrid.appendChild(card);
+          });
+      }
+      
+      // Function to select a chapter
+      function selectChapter(chapter) {
+          currentChapter = chapter;
+          document.getElementById('chapterSelection').style.display = 'none';
+          document.getElementById('uploadSection').style.display = 'block';
+          displayUploadedResources();
+      }
+      
+      // Function to go back to Chapter selection
+      function goBackToChapters() {
+          document.getElementById('uploadSection').style.display = 'none';
+          document.getElementById('chapterSelection').style.display = 'block';
+      }
+      
+      // Function to upload file
+      function uploadFile() {
+          const fileInput = document.getElementById('fileInput');
+          const uploadStatus = document.getElementById('uploadStatus');
+          const file = fileInput.files[0];
+      
+          if (!file) {
+              uploadStatus.innerText = 'Please select a file to upload.';
+              return;
+          }
+      
+          const fileName = file.name;
+          const reader = new FileReader();
+          reader.onload = function () {
+              const resource = {
+                  name: fileName,
+                  data: reader.result,
+                  subject: currentSubject,
+                  year: currentYear,
+                  chapter: currentChapter,
+              };
+      
+              const request = indexedDB.open(dbName);
+              request.onsuccess = function (e) {
+                  const db = e.target.result;
+                  const tx = db.transaction('resources', 'readwrite');
+                  const store = tx.objectStore('resources');
+                  store.put(resource);  // Using 'put' to update if already exists
+      
+                  tx.oncomplete = function () {
+                      uploadStatus.innerText = 'File uploaded successfully.';
+                      displayUploadedResources();
+                  };
+                  tx.onerror = function () {
+                      uploadStatus.innerText = 'Error uploading file.';
+                  };
+              };
+          };
+          reader.readAsDataURL(file);
+      }
+      
+      // Function to display uploaded resources
+        // Function to display uploaded resources
+        function displayUploadedResources() {
+          const uploadedResources = document.getElementById('uploadedResources');
+          uploadedResources.innerHTML = ''; // Clear existing content
+      
+          const request = indexedDB.open(dbName);
+          request.onsuccess = function (e) {
+              const db = e.target.result;
+              const tx = db.transaction('resources', 'readonly');
+              const store = tx.objectStore('resources');
+              const allResources = store.getAll();
+      
+              allResources.onsuccess = function () {
+                  const resources = allResources.result;
+                  resources.filter(resource => resource.chapter === currentChapter && resource.subject === currentSubject && resource.year === currentYear)
+                      .forEach(resource => {
+                          const resourceItem = document.createElement('div');
+                          resourceItem.classList.add('resource-item');
+                          resourceItem.innerHTML = `
+    <h4>${resource.name}</h4>
+    <div class="actions">
+        <a href="${resource.data}" download="${resource.name}">Download</a>
+        <button onclick="deleteResource('${resource.name}')">Delete</button>
+    </div>
+`;
+
+                          uploadedResources.appendChild(resourceItem);
+                      });
+              };
+          };
+      }
+      
+      // Function to delete a resource
+      function deleteResource(name) {
+          const request = indexedDB.open(dbName);
+          request.onsuccess = function (e) {
+              const db = e.target.result;
+              const tx = db.transaction('resources', 'readwrite');
+              const store = tx.objectStore('resources');
+              store.delete(name);
+      
+              tx.oncomplete = function () {
+                  displayUploadedResources();
+              };
+          };
+      }
+      
+      // Initialize database when the page loads
+      window.onload = initDB;
+      
+    </script>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

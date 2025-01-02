@@ -1,0 +1,245 @@
+/* General Page Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Login and Sign-Up Container */
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+  text-align: center;
+  color: #008080;
+  margin-bottom: 20px;
+}
+
+/* Form Fields */
+.login-field {
+  margin-bottom: 20px;
+}
+
+.login-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Show Password Checkbox */
+.login-field div {
+  margin-top: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.login-field div label {
+  margin-left: 5px;
+}
+
+/* Button Styling */
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #008080;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+  background-color: #006f66;
+}
+
+/* Sign-Up Link */
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup-link a {
+  color: #008080;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Extra Field (Sign-Up) */
+#extra-field {
+  margin-top: 15px;
+}
+/* Confirm Password Field Styling */
+#extra-field {
+  margin-top: 20px;
+}
+
+#extra-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #444; /* Slightly lighter than the main label color for distinction */
+}
+
+#extra-field input {
+  width: 100%;
+  padding: 12px; /* Slightly more padding for emphasis */
+  border: 1px solid #008080; /* Highlight the field with a teal border */
+  border-radius: 5px;
+  background-color: #f9f9f9; /* Light background for better visibility */
+  font-size: 16px;
+}
+
+#extra-field input:focus {
+  outline: none;
+  border-color: #006f66; /* Darker teal on focus */
+  box-shadow: 0 0 5px rgba(0, 128, 128, 0.5); /* Subtle glow effect */
+}
+
+/* General Page Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Login and Sign-Up Container */
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+  text-align: center;
+  color: #008080;
+  margin-bottom: 20px;
+}
+
+/* Form Fields */
+.login-field {
+  margin-bottom: 20px;
+}
+
+.login-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Show Password Checkbox */
+.login-field div {
+  margin-top: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.login-field div label {
+  margin-left: 5px;
+}
+
+/* Button Styling */
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #008080;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+  background-color: #006f66;
+}
+
+/* Sign-Up Link */
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup-link a {
+  color: #008080;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Confirm Password Field */
+#extra-field {
+  margin-top: 20px;
+}
+
+#extra-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #444;
+}
+
+#extra-field input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #008080;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 16px;
+}
+
+#extra-field input:focus {
+  outline: none;
+  border-color: #006f66;
+  box-shadow: 0 0 5px rgba(0, 128, 128, 0.5);
+}
+
+
